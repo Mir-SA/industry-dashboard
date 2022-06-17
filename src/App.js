@@ -1,23 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React, { useState } from "react";
+import BasicCard from "./Components/Card";
+import Form from "./Components/Form";
+import Table from "./Components/Table";
 
 function App() {
+  let [symbol, setSymbol] = useState(null);
+  let [symbols, setSymbols] = useState([]);
+  let [industry, setIndustry] = useState(null);
+
+  function handleSubmit(e) {
+    setSymbols(...symbols, symbol);
+    console.log(symbols);
+  }
+
+  function symbolChange(e) {
+    setSymbol(e.target.value);
+  }
+
+  function industryChange(e) {
+    setIndustry(e.target.value);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* Left sidebar */}
+      <aside className="cardLeft">
+        <BasicCard header={"Card TL"} />
+        <BasicCard header={"Card BL"} />
+      </aside>
+
+      <main>
+        <Form
+          submit={handleSubmit}
+          symbols={symbolChange}
+          industry={industryChange}
+        />
+        <Table />
+      </main>
+
+      {/* Right sidebar */}
+      <aside className="cardRight">
+        <BasicCard header={"Card TR"} />
+        <BasicCard header={"Card MR"} />
+        <BasicCard header={"Card BR"} />
+      </aside>
     </div>
   );
 }
